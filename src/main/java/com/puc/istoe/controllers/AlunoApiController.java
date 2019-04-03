@@ -48,9 +48,9 @@ public class AlunoApiController {
 	
 	@GetMapping
 	public ResponseEntity<AlunoDto> buscarAluno(@RequestParam String login) {
-		AlunoDto aluno = alunoService.buscarAluno(login).transformaParaDto();
+		AlunoEntity aluno = alunoService.buscarAluno(login);
 		if (aluno != null) {
-			return new ResponseEntity<AlunoDto>(aluno, HttpStatus.OK);
+			return new ResponseEntity<AlunoDto>(aluno.transformaParaDto(), HttpStatus.OK);
 		}else {
 			return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);
 		}		
