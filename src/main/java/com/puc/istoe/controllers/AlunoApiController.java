@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.puc.istoe.dtos.AlunoDto;
 import com.puc.istoe.entities.AlunoEntity;
+import com.puc.istoe.entities.UsuarioEntity;
 import com.puc.istoe.services.AlunoService;
+import com.puc.istoe.services.UsuarioService;
 
 @RestController
 @RequestMapping("api/alunos")
@@ -21,11 +23,19 @@ public class AlunoApiController {
 	@Autowired
 	private AlunoService alunoService;
 	
+	@Autowired
+	private UsuarioService usuarioService;
+	
 	@PostMapping
 	public ResponseEntity<AlunoDto> cadastrarAluno(@RequestBody AlunoDto alunoDto) {
 		if (!loginExistente(alunoDto.getLogin())) {
 			AlunoEntity alunoEntity = alunoDto.transformaParaEntity();
 			alunoService.salvar(alunoEntity);
+			UsuarioEntity usuarioEntity = new UsuarioEntity();
+			usuarioEntity.setLogin(alunoDto.getLogin());
+			usuarioEntity.setSenha(alunoDto.getSenha());
+			usuarioEntity.setTipo("ALUNO");
+			usuarioService.salvar(usuarioEntity);
 			return new ResponseEntity<AlunoDto>(alunoDto,HttpStatus.OK);
 		}else {
 			return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);
@@ -33,12 +43,17 @@ public class AlunoApiController {
 	}
 	
 	private Boolean loginExistente(String login) {
-		return alunoService.loginExists(login);
+		return usuarioService.loginExists(login);
 	}
 	
 	@GetMapping
 	public ResponseEntity<AlunoDto> buscarAluno(@RequestParam String login) {
-		return new ResponseEntity<AlunoDto>(alunoService.buscarAluno(login).transformaParaDto(), HttpStatus.OK);
+		AlunoDto aluno = alunoService.buscarAluno(login).transformaParaDto();
+		if (aluno != null) {
+			return new ResponseEntity<AlunoDto>(aluno, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);
+		}		
 	}
 
 }

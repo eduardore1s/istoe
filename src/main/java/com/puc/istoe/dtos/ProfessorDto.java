@@ -9,6 +9,18 @@ public class ProfessorDto {
 	private String senha;
 	private String email;
 	
+	public ProfessorDto() {
+		super();
+	}
+	
+	public ProfessorDto(String nome, String login, String senha, String email) {
+		super();
+		this.nome = nome;
+		this.login = login;
+		this.senha = senha;
+		this.email = email;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -35,7 +47,7 @@ public class ProfessorDto {
 	}
 	
 	public ProfessorEntity transformaParaEntity() {
-		return new ProfessorEntity(nome, senha, email);
+		return new ProfessorEntity(nome, login, senha, email);
 	}
 	
 }

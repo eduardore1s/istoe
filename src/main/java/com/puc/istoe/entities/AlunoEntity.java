@@ -14,9 +14,14 @@ import com.puc.istoe.dtos.AlunoDto;
 @Table(name="aluno")
 public class AlunoEntity implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idaluno;
 	private String nome;
 	private String login;
 	private String senha;
@@ -36,11 +41,11 @@ public class AlunoEntity implements Serializable{
 	}
 	
 	public Long getId() {
-		return id;
+		return idaluno;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.idaluno = id;
 	}
 
 	public String getNome() {

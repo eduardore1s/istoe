@@ -19,4 +19,8 @@ public class ProfessorService {
 	public Boolean loginExists(String login) {
 		return professorRepository.findByLogin(login) != null ? true : false;
 	}
+
+	public ProfessorEntity buscarProfessor(String login) {
+		return professorRepository.findByLogin(login);
+	}
 }

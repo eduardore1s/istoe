@@ -1,7 +1,6 @@
 package com.puc.istoe.dtos;
 
 import com.puc.istoe.entities.AlunoEntity;
-import com.puc.istoe.entities.ProfessorEntity;
 
 public class AlunoDto {
 
