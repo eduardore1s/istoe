@@ -48,9 +48,9 @@ public class ProfessorApiController {
 	
 	@GetMapping
 	public ResponseEntity<ProfessorDto> buscarProfessor(@RequestParam String login) {
-		ProfessorDto professor = professorService.buscarProfessor(login).transformaParaDto();
+		ProfessorEntity professor = professorService.buscarProfessor(login);
 		if (professor != null) {
-			return new ResponseEntity<ProfessorDto>(professor, HttpStatus.OK);
+			return new ResponseEntity<ProfessorDto>(professor.transformaParaDto(), HttpStatus.OK);
 		}else {
 			return new ResponseEntity<ProfessorDto>(HttpStatus.BAD_REQUEST);
 		}		
