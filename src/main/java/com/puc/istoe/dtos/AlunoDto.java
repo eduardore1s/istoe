@@ -9,6 +9,21 @@ public class AlunoDto {
 	private String login;
 	private String senha;
 	private String email;
+	private String curso;
+	
+	public AlunoDto() {
+		super();
+	}
+	
+	public AlunoDto(String nome, String login, String senha, String email, String curso) {
+		super();
+		this.nome = nome;
+		this.login = login;
+		this.senha = senha;
+		this.email = email;
+		this.curso = curso;
+	}
+
 	public String getLogin() {
 		return login;
 	}
@@ -16,8 +31,6 @@ public class AlunoDto {
 		this.login = login;
 	}
 
-	private String curso;
-	
 	public String getNome() {
 		return nome;
 	}
@@ -44,6 +57,6 @@ public class AlunoDto {
 	}
 	
 	public AlunoEntity transformaParaEntity() {
-		return new AlunoEntity(nome, senha, email, curso);
+		return new AlunoEntity(nome, senha, login, email, curso);
 	}
 }

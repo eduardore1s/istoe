@@ -35,5 +35,10 @@ public class AlunoApiController {
 	private Boolean loginExistente(String login) {
 		return alunoService.loginExists(login);
 	}
+	
+	@GetMapping
+	public ResponseEntity<AlunoDto> buscarAluno(@RequestParam String login) {
+		return new ResponseEntity<AlunoDto>(alunoService.buscarAluno(login).transformaParaDto(), HttpStatus.OK);
+	}
 
 }
