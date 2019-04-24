@@ -16,12 +16,8 @@ public class AlunoService {
 		alunoRepository.save(alunoEntity);
 	}
 	
-	public Boolean loginExists(String login) {
-		return alunoRepository.findByLogin(login) != null ? true : false;
-	}
-	
-	public AlunoEntity buscarAluno(String login) {
-		return alunoRepository.findByLogin(login);
+	public AlunoEntity buscarAluno(Long idUsuario) {
+		return alunoRepository.findByIdUsuario(idUsuario);
 	}
 }
 

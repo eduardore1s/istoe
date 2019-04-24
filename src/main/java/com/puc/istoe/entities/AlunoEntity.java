@@ -2,6 +2,7 @@ package com.puc.istoe.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 import com.puc.istoe.dtos.AlunoDto;
 
 @Entity
-@Table(name="aluno")
+@Table(name="ALUNO")
 public class AlunoEntity implements Serializable{
 	
 	/**
@@ -21,63 +22,32 @@ public class AlunoEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idaluno;
-	private String nome;
-	private String login;
-	private String senha;
-	private String email;
+	@Column(name = "idALUNO")
+	private Long idAluno;
 	private String curso;
+	private String nome;
+	private String email;
+	@Column(name = "idUSUARIO")
+	private Long idUsuario;
 	
-	public AlunoEntity() {
-		super();
-	}
+	public AlunoEntity() {}
 	
-	public AlunoEntity(String nome, String senha, String login, String email, String curso) {
-		this.nome = nome;
-		this.senha = senha;
-		this.login = login;
-		this.email = email;
+	public AlunoEntity(String curso, String nome, String email) {
 		this.curso = curso;
-	}
-	
-	public Long getId() {
-		return idaluno;
-	}
-
-	public void setId(Long id) {
-		this.idaluno = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public AlunoDto transformaParaDto() {
+		return new AlunoDto(null, null, curso, nome, email);
+	}
+
+	public Long getIdAluno() {
+		return idAluno;
+	}
+
+	public void setIdAluno(Long idAluno) {
+		this.idAluno = idAluno;
 	}
 
 	public String getCurso() {
@@ -88,12 +58,28 @@ public class AlunoEntity implements Serializable{
 		this.curso = curso;
 	}
 
-
-	public AlunoDto transformaParaDto() {
-		return new AlunoDto(nome, login, senha, email, curso);
+	public String getNome() {
+		return nome;
 	}
-	
-	
-	
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 	
 }

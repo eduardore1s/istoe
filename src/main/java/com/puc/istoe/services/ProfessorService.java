@@ -15,12 +15,8 @@ public class ProfessorService {
 	public void salvar(ProfessorEntity professorEntity) {
 		professorRepository.save(professorEntity);
 	}
-	
-	public Boolean loginExists(String login) {
-		return professorRepository.findByLogin(login) != null ? true : false;
-	}
 
-	public ProfessorEntity buscarProfessor(String login) {
-		return professorRepository.findByLogin(login);
+	public ProfessorEntity buscarProfessor(Long idUsuario) {
+		return professorRepository.findByIdUsuario(idUsuario);
 	}
 }

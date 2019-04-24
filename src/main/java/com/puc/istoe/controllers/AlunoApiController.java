@@ -28,18 +28,21 @@ public class AlunoApiController {
 	
 	@PostMapping
 	public ResponseEntity<AlunoDto> cadastrarAluno(@RequestBody AlunoDto alunoDto) {
-		if (!loginExistente(alunoDto.getLogin())) {
-			AlunoEntity alunoEntity = alunoDto.transformaParaEntity();
-			alunoService.salvar(alunoEntity);
-			UsuarioEntity usuarioEntity = new UsuarioEntity();
-			usuarioEntity.setLogin(alunoDto.getLogin());
-			usuarioEntity.setSenha(alunoDto.getSenha());
-			usuarioEntity.setTipo("ALUNO");
-			usuarioService.salvar(usuarioEntity);
-			return new ResponseEntity<AlunoDto>(alunoDto,HttpStatus.OK);
-		}else {
+			
+		if (loginExistente(alunoDto.getLogin())) {
 			return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);
 		}
+		
+		UsuarioEntity usuarioEntity = new UsuarioEntity(alunoDto.getLogin(), alunoDto.getSenha(), "ALUNO");
+		usuarioService.salvar(usuarioEntity);
+		
+		usuarioEntity = usuarioService.buscarUsuario(alunoDto.getLogin());
+		
+		final AlunoEntity alunoEntity = alunoDto.transformaParaEntity();
+		alunoEntity.setIdUsuario(usuarioEntity.getIdUsuario());
+		alunoService.salvar(alunoEntity);
+			
+		return new ResponseEntity<AlunoDto>(alunoDto,HttpStatus.OK);		
 	}
 	
 	private Boolean loginExistente(String login) {
@@ -48,12 +51,22 @@ public class AlunoApiController {
 	
 	@GetMapping
 	public ResponseEntity<AlunoDto> buscarAluno(@RequestParam String login) {
-		AlunoEntity aluno = alunoService.buscarAluno(login);
-		if (aluno != null) {
-			return new ResponseEntity<AlunoDto>(aluno.transformaParaDto(), HttpStatus.OK);
-		}else {
-			return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);
-		}		
+		
+		final UsuarioEntity usuarioEntity = usuarioService.buscarUsuario(login);
+		
+		if (usuarioEntity != null) {	
+			final AlunoEntity alunoEntity = alunoService.buscarAluno(usuarioEntity.getIdUsuario());
+			
+			if (alunoEntity != null) {
+				final AlunoDto alunoDto = alunoEntity.transformaParaDto();
+				alunoDto.setLogin(usuarioEntity.getLogin());
+				alunoDto.setSenha(usuarioEntity.getSenha());	
+				return new ResponseEntity<AlunoDto>(alunoDto, HttpStatus.OK);
+			}
+			
+		}
+		
+		return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);		
 	}
 
 }
