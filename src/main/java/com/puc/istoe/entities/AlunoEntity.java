@@ -1,12 +1,15 @@
 package com.puc.istoe.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.puc.istoe.dtos.AlunoDto;
@@ -30,6 +33,9 @@ public class AlunoEntity implements Serializable{
 	@Column(name = "idUSUARIO")
 	private Long idUsuario;
 	
+	@ManyToMany(targetEntity=TurmaEntity.class, cascade = CascadeType.ALL)
+	private Set turmas;
+	
 	public AlunoEntity() {}
 	
 	public AlunoEntity(String curso, String nome, String email) {
@@ -39,7 +45,7 @@ public class AlunoEntity implements Serializable{
 	}
 
 	public AlunoDto transformaParaDto() {
-		return new AlunoDto(null, null, curso, nome, email);
+		return new AlunoDto(idAluno,null, null, curso, nome, email);
 	}
 
 	public Long getIdAluno() {
@@ -81,5 +87,15 @@ public class AlunoEntity implements Serializable{
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+
+	public Set getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(Set turmas) {
+		this.turmas = turmas;
+	}
+	
+	
 	
 }

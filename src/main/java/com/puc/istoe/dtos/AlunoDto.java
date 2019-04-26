@@ -4,13 +4,15 @@ import com.puc.istoe.entities.AlunoEntity;
 
 public class AlunoDto {
 
+	private Long idAluno;
 	private String login;
 	private String senha;
 	private String curso;
 	private String nome;
 	private String email;
 	
-	public AlunoDto(String login, String senha, String curso, String nome, String email) {
+	public AlunoDto(Long idAluno, String login, String senha, String curso, String nome, String email) {
+		this.idAluno = idAluno;
 		this.login = login;
 		this.senha = senha;
 		this.curso = curso;
@@ -20,6 +22,16 @@ public class AlunoDto {
 	
 	public AlunoEntity transformaParaEntity() {
 		return new AlunoEntity(curso, nome, email);
+	}
+	
+	
+
+	public Long getIdAluno() {
+		return idAluno;
+	}
+
+	public void setIdAluno(Long idAluno) {
+		this.idAluno = idAluno;
 	}
 
 	public String getLogin() {

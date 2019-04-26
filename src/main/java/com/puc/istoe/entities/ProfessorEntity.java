@@ -36,7 +36,7 @@ public class ProfessorEntity implements Serializable {
 	}
 	
 	public ProfessorDto transformaParaDto() {
-		return new ProfessorDto(null, null, nome, email);
+		return new ProfessorDto(idProfessor,null, null, nome, email);
 	}
 
 	public Long getIdProfessor() {

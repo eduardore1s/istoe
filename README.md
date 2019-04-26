@@ -36,7 +36,8 @@ CREATE TABLE `istoe_jf`.`professor` (
 
 #Requests
 
-Adicionar Professor:
+##Adicionar Professor
+
 POST http://localhost:8080/api/professores
 {
 	"nome": "Rommel",
@@ -45,23 +46,48 @@ POST http://localhost:8080/api/professores
 	"email": "rommel@gmail.com"
 }
 
-Adicionar Aluno:
+##Buscar Professor
+
+GET http://localhost:8080/api/professores?login=rommel
+
+##Adicionar Aluno:
+
 POST http://localhost:8080/api/alunos
 
 {
-	"nome": "Hugo Flausino",
-	"login": "hugoflausino",
+	"nome": "Eduardo Reis",
+	"login": "edsilveira.reis",
 	"senha": "023",
 	"curso": "Sistemas de informação",
-	"email": "hugos@gmail.com"
+	"email": "edsilveira.reis@gmail.com"
 }
 
-Buscar Aluno:
-GET http://localhost:8080/api/alunos?login=edsilveira
+##Buscar Aluno:
 
-Buscar Professor
-GET http://localhost:8080/api/professores?login=lele
+GET http://localhost:8080/api/alunos?login=edsilveira.reis
 
-Login:
-GET http://localhost:8080/api/login?login=edsilveira&senha=123456
+##Login:
+
+GET http://localhost:8080/api/login?login=edsilveira.reis&senha=023
+
+##Adicionar Turma:
+
+POST http://localhost:8080/api/turmas
+
+{
+	"disciplina": "Projeto de Sistemas de Informação",
+	"curso": "Sistemas de informação",
+	"unidade": "Barreiro",
+	"idProfessor": 2
+}
+
+
+##Buscar Turma especifica
+
+GET http://localhost:8080/api/turmas/{idTurma}
+
+
+
+
+
 
