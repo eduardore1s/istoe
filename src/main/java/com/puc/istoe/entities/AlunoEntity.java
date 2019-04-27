@@ -1,18 +1,15 @@
 package com.puc.istoe.entities;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.puc.istoe.dtos.AlunoDto;
 
 @Entity
 @Table(name="ALUNO")
@@ -25,27 +22,48 @@ public class AlunoEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idALUNO")
 	private Long idAluno;
 	private String curso;
 	private String nome;
 	private String email;
-	@Column(name = "idUSUARIO")
-	private Long idUsuario;
 	
-	@ManyToMany(targetEntity=TurmaEntity.class, cascade = CascadeType.ALL)
-	private Set turmas;
+	@OneToOne
+	private UsuarioEntity usuarioEntity;
 	
-	public AlunoEntity() {}
+	@ManyToMany(targetEntity=AlunoEntity.class)
+	private List<TurmaEntity> turmas;
 	
-	public AlunoEntity(String curso, String nome, String email) {
-		this.curso = curso;
-		this.nome = nome;
-		this.email = email;
+	@ManyToMany( targetEntity=AlunoEntity.class)
+	private List<EquipeEntity> participaEquipes;
+	
+	@ManyToMany( targetEntity=AlunoEntity.class)
+	private List<EquipeEntity> lideraEquipes;
+	
+	@ManyToMany( targetEntity=FatoEntity.class)
+	private List<FatoEntity> fatosRespondios;
+
+	public List<FatoEntity> getFatosRespondios() {
+		return fatosRespondios;
 	}
 
-	public AlunoDto transformaParaDto() {
-		return new AlunoDto(idAluno,null, null, curso, nome, email);
+	public void setFatosRespondios(List<FatoEntity> fatosRespondios) {
+		this.fatosRespondios = fatosRespondios;
+	}
+
+	public List<EquipeEntity> getParticipaEquipes() {
+		return participaEquipes;
+	}
+
+	public void setParticipaEquipes(List<EquipeEntity> participaEquipes) {
+		this.participaEquipes = participaEquipes;
+	}
+
+	public List<EquipeEntity> getLideraEquipes() {
+		return lideraEquipes;
+	}
+
+	public void setLideraEquipes(List<EquipeEntity> lideraEquipes) {
+		this.lideraEquipes = lideraEquipes;
 	}
 
 	public Long getIdAluno() {
@@ -80,22 +98,19 @@ public class AlunoEntity implements Serializable{
 		this.email = email;
 	}
 
-	public Long getIdUsuario() {
-		return idUsuario;
+	public UsuarioEntity getUsuarioEntity() {
+		return usuarioEntity;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
+		this.usuarioEntity = usuarioEntity;
 	}
 
-	public Set getTurmas() {
+	public List<TurmaEntity> getTurmas() {
 		return turmas;
 	}
 
-	public void setTurmas(Set turmas) {
+	public void setTurmas(List<TurmaEntity> turmas) {
 		this.turmas = turmas;
 	}
-	
-	
-	
 }

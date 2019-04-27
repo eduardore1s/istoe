@@ -2,7 +2,6 @@ package com.puc.istoe.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +21,6 @@ public class UsuarioEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idUSUARIO")
 	private Long idUsuario;
 	private String login;	
 	private String senha;	
@@ -71,10 +69,5 @@ public class UsuarioEntity implements Serializable{
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	
 }

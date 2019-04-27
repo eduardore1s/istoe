@@ -18,9 +18,9 @@ public class AlunoService {
 		alunoRepository.save(alunoEntity);
 	}
 	
-	public AlunoEntity buscarAluno(Long idUsuario) {
-		return alunoRepository.findByIdUsuario(idUsuario);
-	}
+//	public AlunoEntity buscarAluno(Long idUsuario) {
+//		return alunoRepository.findByIdUsuario(idUsuario);
+//	}
 	
 	public List<AlunoEntity> buscarAlunos(){
 		return (List<AlunoEntity>) alunoRepository.findAll();

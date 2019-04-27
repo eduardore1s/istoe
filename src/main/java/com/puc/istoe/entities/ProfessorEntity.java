@@ -2,11 +2,11 @@ package com.puc.istoe.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.puc.istoe.dtos.ProfessorDto;
@@ -21,15 +21,21 @@ public class ProfessorEntity implements Serializable {
 	private static final long serialVersionUID = 1L;	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idPROFESSOR")
 	private Long idProfessor;
 	private String nome;
 	private String email;
-	@Column(name = "idUSUARIO")
-	private Long idUsuario;
 	
-	public ProfessorEntity() {}
+	@OneToOne
+	private UsuarioEntity usuarioEntity;
 	
+	public UsuarioEntity getUsuarioEntity() {
+		return usuarioEntity;
+	}
+
+	public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
+		this.usuarioEntity = usuarioEntity;
+	}
+
 	public ProfessorEntity(String nome, String email) {
 		this.nome = nome;
 		this.email = email;
@@ -61,14 +67,6 @@ public class ProfessorEntity implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Long getIdUsuario() {
-		return idUsuario;
-	}
-
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
 	}
 	
 	

@@ -16,7 +16,7 @@ public class ProfessorService {
 		professorRepository.save(professorEntity);
 	}
 
-	public ProfessorEntity buscarProfessor(Long idUsuario) {
-		return professorRepository.findByIdUsuario(idUsuario);
-	}
+//	public ProfessorEntity buscarProfessor(Long idUsuario) {
+//		return professorRepository.findByIdUsuario(idUsuario);
+//	}
 }

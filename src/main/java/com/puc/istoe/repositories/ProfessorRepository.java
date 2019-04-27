@@ -8,5 +8,4 @@ import com.puc.istoe.entities.ProfessorEntity;
 @Repository
 public interface ProfessorRepository extends CrudRepository<ProfessorEntity, Long>{
 
-	ProfessorEntity findByIdUsuario(Long idUsuario);
 }

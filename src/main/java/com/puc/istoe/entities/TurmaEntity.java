@@ -1,18 +1,16 @@
 package com.puc.istoe.entities;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.puc.istoe.dtos.TurmaDto;
 
 @Entity
 @Table(name="TURMA")
@@ -30,32 +28,27 @@ public class TurmaEntity implements Serializable{
 	private String disciplina;
 	private String curso;
 	private String unidade;
-	@Column(name = "idPROFESSOR")
-	private Long idProfessor;
 	
-	@ManyToMany(targetEntity=AlunoEntity.class, cascade = CascadeType.ALL)
-	private Set alunos;
+	@OneToOne
+	private ProfessorEntity professorEntity;
 	
-	public TurmaEntity() {}
-	
-	public TurmaEntity(String disciplina, String curso, String unidade, Long idProfessor) {
-		this.disciplina = disciplina;
-		this.curso = curso;
-		this.unidade = unidade;
-		this.idProfessor = idProfessor;
-	}
-	
-	public TurmaDto transformaParaDto() {
-		return new TurmaDto(disciplina, curso, unidade, idProfessor);
-	}
-	
-	
-	public Long getIdProfessor() {
-		return idProfessor;
+	@ManyToMany(targetEntity=AlunoEntity.class)
+	private List<AlunoEntity> alunos;
+
+	public ProfessorEntity getProfessorEntity() {
+		return professorEntity;
 	}
 
-	public void setIdProfessor(Long idProfessor) {
-		this.idProfessor = idProfessor;
+	public void setProfessorEntity(ProfessorEntity professorEntity) {
+		this.professorEntity = professorEntity;
+	}
+
+	public List<AlunoEntity> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<AlunoEntity> alunos) {
+		this.alunos = alunos;
 	}
 
 	public Long getIdTurma() {
@@ -81,14 +74,6 @@ public class TurmaEntity implements Serializable{
 	}
 	public void setUnidade(String unidade) {
 		this.unidade = unidade;
-	}
-
-	public Set getAlunos() {
-		return alunos;
-	}
-
-	public void setAlunos(Set alunos) {
-		this.alunos = alunos;
 	}
 	
 }

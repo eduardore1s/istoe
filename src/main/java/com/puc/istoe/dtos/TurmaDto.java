@@ -2,8 +2,6 @@ package com.puc.istoe.dtos;
 
 import java.util.List;
 
-import com.puc.istoe.entities.TurmaEntity;
-
 public class TurmaDto {
 	
 	private String disciplina;
@@ -17,10 +15,6 @@ public class TurmaDto {
 		this.curso = curso;
 		this.unidade = unidade;
 		this.idProfessor = idProfessor;
-	}
-	
-	public TurmaEntity transformaParaEntity() {
-		return new TurmaEntity(disciplina, curso, unidade, idProfessor);
 	}
 	
 	public String getDisciplina() {

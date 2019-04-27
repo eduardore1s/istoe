@@ -1,4 +1,4 @@
-package com.puc.istoe;
+	package com.puc.istoe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
