@@ -2,6 +2,7 @@ package com.puc.istoe.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class TurmaEntity implements Serializable{
 	private ProfessorEntity professorEntity;
 	
 	@ManyToMany(targetEntity=AlunoEntity.class)
-	private List<AlunoEntity> alunos;
+	private List alunos;
 
 	public ProfessorEntity getProfessorEntity() {
 		return professorEntity;

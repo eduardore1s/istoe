@@ -9,4 +9,5 @@ import com.puc.istoe.entities.ProfessorEntity;
 public interface ProfessorRepository extends CrudRepository<ProfessorEntity, Long>{
 
 	ProfessorEntity findByUsuarioEntityIdUsuario(Long idUsuario);
+	ProfessorEntity findByIdProfessor(Long idProfessor);
 }

@@ -41,7 +41,7 @@ public class AlunoApiController {
 		final AlunoEntity alunoEntity = alunoDto.transformaParaEntity();
 		alunoEntity.setUsuarioEntity(usuarioEntity);
 		alunoService.salvar(alunoEntity);
-			
+		alunoDto.setIdAluno(alunoEntity.getIdAluno());	
 		return new ResponseEntity<AlunoDto>(alunoDto,HttpStatus.OK);		
 	}
 	
@@ -55,7 +55,7 @@ public class AlunoApiController {
 		final UsuarioEntity usuarioEntity = usuarioService.buscarUsuario(login);
 		
 		if (usuarioEntity != null) {	
-			final AlunoEntity alunoEntity = alunoService.buscarAluno(usuarioEntity.getIdUsuario());
+			final AlunoEntity alunoEntity = alunoService.buscarAlunoIdUsuario(usuarioEntity.getIdUsuario());
 			
 			if (alunoEntity != null) {
 				final AlunoDto alunoDto = new AlunoDto();
@@ -66,7 +66,6 @@ public class AlunoApiController {
 				alunoDto.setNome(alunoEntity.getNome());
 				return new ResponseEntity<AlunoDto>(alunoDto, HttpStatus.OK);
 			}
-			
 		}
 		
 		return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);		

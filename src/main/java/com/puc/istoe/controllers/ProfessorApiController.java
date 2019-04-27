@@ -41,7 +41,7 @@ public class ProfessorApiController {
 		final ProfessorEntity professorEntity = professorDto.transformaParaEntity();
 		professorEntity.setUsuarioEntity(usuarioEntity);
 		professorService.salvar(professorEntity);
-
+		professorDto.setIdProfessor(professorEntity.getIdProfessor());
 		return new ResponseEntity<ProfessorDto>(professorDto, HttpStatus.OK);
 	}
 
@@ -55,7 +55,7 @@ public class ProfessorApiController {
 		final UsuarioEntity usuarioEntity = usuarioService.buscarUsuario(login);
 
 		if (usuarioEntity != null) {
-			final ProfessorEntity professorEntity = professorService.buscarProfessor(usuarioEntity.getIdUsuario());
+			final ProfessorEntity professorEntity = professorService.buscarProfessorIdUsuario(usuarioEntity.getIdUsuario());
 
 			if (professorEntity != null) {
 				final ProfessorDto professorDto = new ProfessorDto();

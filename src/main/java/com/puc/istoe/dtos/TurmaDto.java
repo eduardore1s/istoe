@@ -3,35 +3,46 @@ package com.puc.istoe.dtos;
 import java.util.List;
 
 public class TurmaDto {
-	
+
+	private Long idTurma;
 	private String disciplina;
 	private String curso;
 	private String unidade;
 	private Long idProfessor;
-	private List<Long> alunos;
+	private List alunos;
 	
-	public TurmaDto(String disciplina, String curso, String unidade, Long idProfessor) {
-		this.disciplina = disciplina;
-		this.curso = curso;
-		this.unidade = unidade;
-		this.idProfessor = idProfessor;
+	public Long getIdTurma() {
+		return idTurma;
 	}
-	
+
+	public void setIdTurma(Long idTurma) {
+		this.idTurma = idTurma;
+	}
+
+	public void setAlunos(List alunos) {
+		this.alunos = alunos;
+	}
+
 	public String getDisciplina() {
 		return disciplina;
 	}
+
 	public void setDisciplina(String disciplina) {
 		this.disciplina = disciplina;
 	}
+
 	public String getCurso() {
 		return curso;
 	}
+
 	public void setCurso(String curso) {
 		this.curso = curso;
 	}
+
 	public String getUnidade() {
 		return unidade;
 	}
+
 	public void setUnidade(String unidade) {
 		this.unidade = unidade;
 	}
@@ -46,10 +57,6 @@ public class TurmaDto {
 
 	public List<Long> getAlunos() {
 		return alunos;
-	}
-
-	public void setAlunos(List<Long> alunos) {
-		this.alunos = alunos;
 	}
 
 }
