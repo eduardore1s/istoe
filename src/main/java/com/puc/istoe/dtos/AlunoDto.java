@@ -1,5 +1,7 @@
 package com.puc.istoe.dtos;
 
+import com.puc.istoe.entities.AlunoEntity;
+
 public class AlunoDto {
 
 	private Long idAluno;
@@ -9,13 +11,12 @@ public class AlunoDto {
 	private String nome;
 	private String email;
 	
-	public AlunoDto(Long idAluno, String login, String senha, String curso, String nome, String email) {
-		this.idAluno = idAluno;
-		this.login = login;
-		this.senha = senha;
-		this.curso = curso;
-		this.nome = nome;
-		this.email = email;
+	public AlunoEntity transformaParaEntity() {
+		final AlunoEntity alunoEntity = new AlunoEntity();
+		alunoEntity.setCurso(this.curso);
+		alunoEntity.setNome(this.nome);
+		alunoEntity.setEmail(this.email);
+		return alunoEntity;
 	}
 
 	public Long getIdAluno() {

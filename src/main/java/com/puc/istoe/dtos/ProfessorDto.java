@@ -9,19 +9,13 @@ public class ProfessorDto {
 	private String senha;
 	private String nome;
 	private String email;
-		
-	public ProfessorDto(Long idProfessor, String login, String senha, String nome, String email) {
-		this.idProfessor = idProfessor;
-		this.login = login;
-		this.senha = senha;
-		this.nome = nome;
-		this.email = email;
-	}
-	
+
 	public ProfessorEntity transformaParaEntity() {
-		return new ProfessorEntity(nome, email);
+		final ProfessorEntity professorEntity = new ProfessorEntity();
+		professorEntity.setNome(this.nome);
+		professorEntity.setEmail(this.email);
+		return professorEntity;
 	}
-	
 
 	public Long getIdProfessor() {
 		return idProfessor;

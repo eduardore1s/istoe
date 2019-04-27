@@ -3,6 +3,7 @@ package com.puc.istoe.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class AlunoEntity implements Serializable{
 	private String nome;
 	private String email;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private UsuarioEntity usuarioEntity;
 	
 	@ManyToMany(targetEntity=AlunoEntity.class)

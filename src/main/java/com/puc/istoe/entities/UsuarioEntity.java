@@ -26,14 +26,6 @@ public class UsuarioEntity implements Serializable{
 	private String senha;	
 	private String tipo;
 	
-	public UsuarioEntity() {}
-	
-	public UsuarioEntity(String login, String senha, String tipo) {
-		this.login = login;
-		this.senha = senha;
-		this.tipo = tipo;
-	}
-	
 	public UsuarioDto transformaParaDto() {
 		return new UsuarioDto(login, senha, tipo);
 	}

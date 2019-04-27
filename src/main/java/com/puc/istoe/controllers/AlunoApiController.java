@@ -19,54 +19,57 @@ import com.puc.istoe.services.UsuarioService;
 @RestController
 @RequestMapping("api/alunos")
 public class AlunoApiController {
-//
-//	@Autowired
-//	private AlunoService alunoService;
-//	
-//	@Autowired
-//	private UsuarioService usuarioService;
-//	
-//	@PostMapping
-//	public ResponseEntity<AlunoDto> cadastrarAluno(@RequestBody AlunoDto alunoDto) {
-//			
-//		if (loginExistente(alunoDto.getLogin())) {
-//			return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//		UsuarioEntity usuarioEntity = new UsuarioEntity(alunoDto.getLogin(), alunoDto.getSenha(), "ALUNO");
-//		usuarioService.salvar(usuarioEntity);
-//		
-//		usuarioEntity = usuarioService.buscarUsuario(alunoDto.getLogin());
-//		
-//		final AlunoEntity alunoEntity = alunoDto.transformaParaEntity();
-//		alunoEntity.setIdUsuario(usuarioEntity.getIdUsuario());
-//		alunoService.salvar(alunoEntity);
-//			
-//		return new ResponseEntity<AlunoDto>(alunoDto,HttpStatus.OK);		
-//	}
-//	
-//	private Boolean loginExistente(String login) {
-//		return usuarioService.loginExists(login);
-//	}
-//	
-//	@GetMapping
-//	public ResponseEntity<AlunoDto> buscarAluno(@RequestParam String login) {
-//		
-//		final UsuarioEntity usuarioEntity = usuarioService.buscarUsuario(login);
-//		
-//		if (usuarioEntity != null) {	
-//			final AlunoEntity alunoEntity = alunoService.buscarAluno(usuarioEntity.getIdUsuario());
-//			
-//			if (alunoEntity != null) {
-//				final AlunoDto alunoDto = alunoEntity.transformaParaDto();
-//				alunoDto.setLogin(usuarioEntity.getLogin());
-//				alunoDto.setSenha(usuarioEntity.getSenha());	
-//				return new ResponseEntity<AlunoDto>(alunoDto, HttpStatus.OK);
-//			}
-//			
-//		}
-//		
-//		return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);		
-//	}
+
+	@Autowired
+	private AlunoService alunoService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	@PostMapping
+	public ResponseEntity<AlunoDto> cadastrarAluno(@RequestBody AlunoDto alunoDto) {
+			
+		if (loginExistente(alunoDto.getLogin())) {
+			return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);
+		}
+		
+		final UsuarioEntity usuarioEntity = new UsuarioEntity();
+		usuarioEntity.setLogin(alunoDto.getLogin());
+		usuarioEntity.setSenha(alunoDto.getSenha());
+		usuarioEntity.setTipo("ALUNO");
+		
+		final AlunoEntity alunoEntity = alunoDto.transformaParaEntity();
+		alunoEntity.setUsuarioEntity(usuarioEntity);
+		alunoService.salvar(alunoEntity);
+			
+		return new ResponseEntity<AlunoDto>(alunoDto,HttpStatus.OK);		
+	}
+	
+	private Boolean loginExistente(String login) {
+		return usuarioService.loginExists(login);
+	}
+	
+	@GetMapping
+	public ResponseEntity<AlunoDto> buscarAluno(@RequestParam String login) {
+		
+		final UsuarioEntity usuarioEntity = usuarioService.buscarUsuario(login);
+		
+		if (usuarioEntity != null) {	
+			final AlunoEntity alunoEntity = alunoService.buscarAluno(usuarioEntity.getIdUsuario());
+			
+			if (alunoEntity != null) {
+				final AlunoDto alunoDto = new AlunoDto();
+				alunoDto.setCurso(alunoEntity.getCurso());
+				alunoDto.setEmail(alunoEntity.getEmail());
+				alunoDto.setIdAluno(alunoEntity.getIdAluno());
+				alunoDto.setLogin(usuarioEntity.getLogin());
+				alunoDto.setNome(alunoEntity.getNome());
+				return new ResponseEntity<AlunoDto>(alunoDto, HttpStatus.OK);
+			}
+			
+		}
+		
+		return new ResponseEntity<AlunoDto>(HttpStatus.BAD_REQUEST);		
+	}
 
 }
