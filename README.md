@@ -1,16 +1,17 @@
+
 # istoe
 Sistema de Julgamento de Fatos - IstoE
 
 
-#Banco de dados
+# Banco de dados
 
 Criar schema no banco de dados, com o nome "istoe"
 
-#Requests
+# Requests
 
-##US0
+## US0
 
-###> Cadastrar professor
+### > Cadastrar professor
 
 POST http://localhost:8080/api/professores
 {
@@ -20,20 +21,20 @@ POST http://localhost:8080/api/professores
 	"email": "lesandro@gmail.com"
 }
 
-###> Buscar Professor
+### > Buscar Professor
 
 GET http://localhost:8080/api/professores?login=lesandro
 
 
-###> Login
+### > Login
 
 GET http://localhost:8080/api/login?login=lesandro&senha=1234
 
 
 
-##US1
+## US1
 
-###> Cadastrar Aluno
+### > Cadastrar Aluno
 
 POST http://localhost:8080/api/alunos
 
@@ -45,15 +46,15 @@ POST http://localhost:8080/api/alunos
 	"email": "edsilveira.reis@gmail.com"
 }
 
-###> Buscar Aluno:
+### > Buscar Aluno:
 
 GET http://localhost:8080/api/alunos?login=edsilveira.reis
 
 
 
-##US2
+## US2
 
-###> Cadastrar Turma:
+### > Cadastrar Turma:
 
 POST http://localhost:8080/api/turmas
 
@@ -65,22 +66,25 @@ POST http://localhost:8080/api/turmas
 }
 
 
-###> Buscar Turma especifica
+### > Buscar Turma especifica
 
 GET http://localhost:8080/api/turmas/{idTurma}
 
 
-###> Buscar Alunos do curso
+### > Buscar Alunos do curso
 
 GET http://localhost:8080/api/alunos?curso=Sistemas de informação
 
-###> Adicionar aluno à turma
+### > Adicionar aluno à turma
 
 POST http://localhost:8080/api/turmas/{idTurma}/alunos
 
 {
 	"idAluno": 53
 }
+
+
+## US3
 
 
 
