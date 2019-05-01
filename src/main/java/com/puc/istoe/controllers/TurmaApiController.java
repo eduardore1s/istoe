@@ -1,8 +1,5 @@
 package com.puc.istoe.controllers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.puc.istoe.dtos.AlunoDto;
 import com.puc.istoe.dtos.TurmaDto;
 import com.puc.istoe.entities.AlunoEntity;
 import com.puc.istoe.entities.ProfessorEntity;
@@ -58,38 +56,47 @@ public class TurmaApiController {
 		final TurmaEntity turmaEntity = turmaService.buscarTurma(idTurma);
 
 		if (turmaEntity != null) {
-			final TurmaDto turmaDto = new TurmaDto();
-			turmaDto.setCurso(turmaEntity.getCurso());
-			turmaDto.setDisciplina(turmaEntity.getDisciplina());
-			turmaDto.setIdProfessor(turmaEntity.getProfessorEntity().getIdProfessor());
-			turmaDto.setUnidade(turmaEntity.getUnidade());
-			turmaDto.setAlunos(turmaEntity.getAlunos());
+			final TurmaDto turmaDto = transformarTurmaParaDto(turmaEntity);
 			
 			return new ResponseEntity<TurmaDto>(turmaDto, HttpStatus.OK);
 		}
 		
 		return new ResponseEntity<TurmaDto>(HttpStatus.BAD_REQUEST);
 	}
-//
-//	@RequestMapping("/{idTurma}/alunos")
-//	@PostMapping
-//	public ResponseEntity<TurmaDto> incluirAluno(@PathVariable("idTurma") Long idTurma, @RequestBody Long idAluno) {
-//
-//		final TurmaEntity turmaEntity = turmaService.buscarTurma(idTurma);
-//
-//		if (turmaEntity != null) {
-//			final TurmaDto turmaDto = turmaEntity.transformaParaDto();
-//			turmaDto.setAlunos(new ArrayList<Long>());
-//				
-//			for (MatriculadoTurmaEntity matriculadoTurma : matriculadoTurmaService
-//					.buscarAlunosMatriculadosNaTurma(turmaEntity.getIdTurma())) {
-//				turmaDto.getAlunos().add(matriculadoTurma.getIdAluno());
-//			}
-//
-//			return new ResponseEntity<TurmaDto>(turmaDto, HttpStatus.OK);
-//		}
-//
-//		return new ResponseEntity<TurmaDto>(HttpStatus.BAD_REQUEST);
-//	}
+
+	@RequestMapping("/{idTurma}/alunos")
+	@PostMapping
+	public ResponseEntity<TurmaDto> incluirAluno(@PathVariable("idTurma") String idTurma, @RequestBody AlunoDto alunoDto) {
+
+		final TurmaEntity turmaEntity = turmaService.buscarTurma(new Long(idTurma));
+
+		if (turmaEntity != null) {
+			
+			final AlunoEntity alunoEntity = alunoService.buscarAlunoIdAluno(alunoDto.getIdAluno());
+				
+			if (alunoEntity != null) {
+				turmaEntity.getAlunos().add(alunoEntity);
+				turmaService.salvar(turmaEntity);
+			}
+			
+			final TurmaDto turmaDto = transformarTurmaParaDto(turmaEntity);
+
+			return new ResponseEntity<TurmaDto>(turmaDto, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<TurmaDto>(HttpStatus.BAD_REQUEST);
+	}
+	
+	public TurmaDto transformarTurmaParaDto(TurmaEntity turmaEntity) {
+		final TurmaDto turmaDto = new TurmaDto();
+		turmaDto.setCurso(turmaEntity.getCurso());
+		turmaDto.setDisciplina(turmaEntity.getDisciplina());
+		turmaDto.setIdProfessor(turmaEntity.getProfessorEntity().getIdProfessor());
+		turmaDto.setUnidade(turmaEntity.getUnidade());
+		turmaDto.setAlunos(turmaEntity.getAlunos());
+		turmaDto.setIdTurma(turmaEntity.getIdTurma());
+		
+		return turmaDto;
+	}
 	
 }

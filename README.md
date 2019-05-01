@@ -4,53 +4,36 @@ Sistema de Julgamento de Fatos - IstoE
 
 #Banco de dados
 
-banco rodando: localhost:3306/istoe_jf
-
-CREATE TABLE `istoe_jf`.`usuario` (
-  `idusuario` INT NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(45) NULL,
-  `senha` VARCHAR(45) NULL,
-  `tipo` VARCHAR(45) NULL,
-  PRIMARY KEY (`idusuario`));
-
-CREATE TABLE `istoe_jf`.`aluno` (
-  `idaluno` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  `login` VARCHAR(45) NULL,
-  `senha` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  `curso` VARCHAR(45) NULL,
-  PRIMARY KEY (`idaluno`));
-
-CREATE TABLE `istoe_jf`.`professor` (
-  `idprofessor` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  `login` VARCHAR(45) NULL,
-  `senha` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  PRIMARY KEY (`idprofessor`));
-
-
-
-
+Criar schema no banco de dados, com o nome "istoe"
 
 #Requests
 
-##Adicionar Professor
+##US0
+
+###> Cadastrar professor
 
 POST http://localhost:8080/api/professores
 {
-	"nome": "Rommel",
-	"login": "rommel",
+	"nome": "Lesandro",
+	"login": "lesandro",
 	"senha": "1234",
-	"email": "rommel@gmail.com"
+	"email": "lesandro@gmail.com"
 }
 
-##Buscar Professor
+###> Buscar Professor
 
-GET http://localhost:8080/api/professores?login=rommel
+GET http://localhost:8080/api/professores?login=lesandro
 
-##Adicionar Aluno:
+
+###> Login
+
+GET http://localhost:8080/api/login?login=lesandro&senha=1234
+
+
+
+##US1
+
+###> Cadastrar Aluno
 
 POST http://localhost:8080/api/alunos
 
@@ -62,15 +45,15 @@ POST http://localhost:8080/api/alunos
 	"email": "edsilveira.reis@gmail.com"
 }
 
-##Buscar Aluno:
+###> Buscar Aluno:
 
 GET http://localhost:8080/api/alunos?login=edsilveira.reis
 
-##Login:
 
-GET http://localhost:8080/api/login?login=edsilveira.reis&senha=023
 
-##Adicionar Turma:
+##US2
+
+###> Cadastrar Turma:
 
 POST http://localhost:8080/api/turmas
 
@@ -78,13 +61,26 @@ POST http://localhost:8080/api/turmas
 	"disciplina": "Projeto de Sistemas de Informação",
 	"curso": "Sistemas de informação",
 	"unidade": "Barreiro",
-	"idProfessor": 2
+	"idProfessor": 1
 }
 
 
-##Buscar Turma especifica
+###> Buscar Turma especifica
 
 GET http://localhost:8080/api/turmas/{idTurma}
+
+
+###> Buscar Alunos do curso
+
+GET http://localhost:8080/api/alunos?curso=Sistemas de informação
+
+###> Adicionar aluno à turma
+
+POST http://localhost:8080/api/turmas/{idTurma}/alunos
+
+{
+	"idAluno": 53
+}
 
 
 

@@ -34,7 +34,15 @@ public class TurmaEntity implements Serializable{
 	private ProfessorEntity professorEntity;
 	
 	@ManyToMany(targetEntity=AlunoEntity.class)
-	private List alunos;
+	private Set alunos;
+
+	public Set getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(Set alunos) {
+		this.alunos = alunos;
+	}
 
 	public ProfessorEntity getProfessorEntity() {
 		return professorEntity;
@@ -42,14 +50,6 @@ public class TurmaEntity implements Serializable{
 
 	public void setProfessorEntity(ProfessorEntity professorEntity) {
 		this.professorEntity = professorEntity;
-	}
-
-	public List<AlunoEntity> getAlunos() {
-		return alunos;
-	}
-
-	public void setAlunos(List<AlunoEntity> alunos) {
-		this.alunos = alunos;
 	}
 
 	public Long getIdTurma() {

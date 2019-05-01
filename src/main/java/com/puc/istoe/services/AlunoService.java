@@ -17,13 +17,17 @@ public class AlunoService {
 	public void salvar(AlunoEntity alunoEntity) {
 		alunoRepository.save(alunoEntity);
 	}
-	
+
 	public AlunoEntity buscarAlunoIdUsuario(Long idUsuario) {
 		return alunoRepository.findByUsuarioEntityIdUsuario(idUsuario);
 	}
-	
-	public List<AlunoEntity> buscarAlunos(){
-		return (List<AlunoEntity>) alunoRepository.findAll();
+
+	public AlunoEntity buscarAlunoIdAluno(Long idAluno) {
+		return alunoRepository.findByIdAluno(idAluno);
+	}
+
+	public List<AlunoEntity> buscarAlunos(String curso) {
+		return alunoRepository.findByCurso(curso);
 	}
 }
 

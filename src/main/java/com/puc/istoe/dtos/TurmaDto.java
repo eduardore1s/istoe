@@ -1,6 +1,6 @@
 package com.puc.istoe.dtos;
 
-import java.util.List;
+import java.util.Set;
 
 public class TurmaDto {
 
@@ -9,8 +9,12 @@ public class TurmaDto {
 	private String curso;
 	private String unidade;
 	private Long idProfessor;
-	private List alunos;
+	private Set alunos;
 	
+	public Set getAlunos() {
+		return alunos;
+	}
+
 	public Long getIdTurma() {
 		return idTurma;
 	}
@@ -19,7 +23,7 @@ public class TurmaDto {
 		this.idTurma = idTurma;
 	}
 
-	public void setAlunos(List alunos) {
+	public void setAlunos(Set alunos) {
 		this.alunos = alunos;
 	}
 
@@ -53,10 +57,6 @@ public class TurmaDto {
 
 	public void setIdProfessor(Long idProfessor) {
 		this.idProfessor = idProfessor;
-	}
-
-	public List<Long> getAlunos() {
-		return alunos;
 	}
 
 }
