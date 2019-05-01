@@ -20,7 +20,8 @@ public class JfEntity implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idJf;
 	private String status;
-	private String email;
+	private Integer tamMaxEquipes;
+	private Integer tempoMaxExibicaoFato;
 
 	@OneToOne
 	private TurmaEntity turmaEntity;
@@ -47,14 +48,6 @@ public class JfEntity implements Serializable{
 		this.status = status;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public TurmaEntity getTurmaEntity() {
 		return turmaEntity;
 	}
@@ -78,4 +71,21 @@ public class JfEntity implements Serializable{
 	public void setProfessorEntity(ProfessorEntity professorEntity) {
 		this.professorEntity = professorEntity;
 	}
+
+	public Integer getTamMaxEquipes() {
+		return tamMaxEquipes;
+	}
+
+	public void setTamMaxEquipes(Integer tamMaxEquipes) {
+		this.tamMaxEquipes = tamMaxEquipes;
+	}
+
+	public Integer getTempoMaxExibicaoFato() {
+		return tempoMaxExibicaoFato;
+	}
+
+	public void setTempoMaxExibicaoFato(Integer tempoMaxExibicaoFato) {
+		this.tempoMaxExibicaoFato = tempoMaxExibicaoFato;
+	}
+	
 }

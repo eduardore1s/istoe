@@ -86,6 +86,31 @@ POST http://localhost:8080/api/turmas/{idTurma}/alunos
 
 ## US3
 
+### > Cadastrar JF:
+
+POST http://localhost:8080/api/turmas/{idTurma}/jfs
+
+{
+	"status": "CRIACAO",
+	"tamMaxEquipes": 10,
+	"tempoMaxExibicaoFato": 5
+}
+
+
+
+
+### > Definir status JF:
+
+PATCH http://localhost:8080/api/turmas/{idTurma}/jfs/{idFf}
+
+{
+	"status": "PREPARACAO"
+}
+
+### > Buscar JFs da Turma:
+
+GET http://localhost:8080/api/turmas/6/{idTurma}
+
 
 
 
