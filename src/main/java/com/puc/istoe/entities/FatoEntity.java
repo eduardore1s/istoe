@@ -18,9 +18,11 @@ public class FatoEntity implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idFato;
+	private Integer ordem;
 	private String conteudo;
 	private String topicoDisciplina;
 	private String resposta;
@@ -37,6 +39,22 @@ public class FatoEntity implements Serializable{
 
 	public void setIdFato(Long idFato) {
 		this.idFato = idFato;
+	}
+
+	public Integer getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(Integer ordem) {
+		this.ordem = ordem;
+	}
+
+	public List<AlunoEntity> getAlunosReponderam() {
+		return alunosReponderam;
+	}
+
+	public void setAlunosReponderam(List<AlunoEntity> alunosReponderam) {
+		this.alunosReponderam = alunosReponderam;
 	}
 
 	public String getConteudo() {

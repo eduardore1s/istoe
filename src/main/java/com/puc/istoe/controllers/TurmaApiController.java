@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.puc.istoe.dtos.AlunoDto;
+import com.puc.istoe.dtos.FatoDto;
 import com.puc.istoe.dtos.JfDto;
 import com.puc.istoe.dtos.TurmaDto;
 import com.puc.istoe.entities.AlunoEntity;
+import com.puc.istoe.entities.FatoEntity;
 import com.puc.istoe.entities.JfEntity;
 import com.puc.istoe.entities.ProfessorEntity;
 import com.puc.istoe.entities.TurmaEntity;
 import com.puc.istoe.services.AlunoService;
+import com.puc.istoe.services.FatoService;
 import com.puc.istoe.services.JfService;
 import com.puc.istoe.services.ProfessorService;
 import com.puc.istoe.services.TurmaService;
@@ -41,6 +44,9 @@ public class TurmaApiController {
 
 	@Autowired
 	private JfService jfService;
+	
+	@Autowired
+	private FatoService fatoService;
 
 	@SuppressWarnings("unchecked")
 	@PostMapping
@@ -176,5 +182,26 @@ public class TurmaApiController {
 		}
 
 		return new ResponseEntity<List<JfDto>>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@PostMapping("/{idTurma}/jfs/{idJf}/fatos")
+	public ResponseEntity<FatoDto> cadastrarFatos(@PathVariable("idTurma") String idTurma,
+			@PathVariable("idJf") String idJf, @RequestBody FatoDto fatoDto) {
+
+		final FatoEntity fatoEntity = new FatoEntity();
+		fatoEntity.setOrdem(fatoDto.getOrdem());
+		fatoEntity.setConteudo(fatoDto.getConteudo());
+		fatoEntity.setTopicoDisciplina(fatoDto.getTopicoDisciplina());
+		fatoEntity.setResposta(fatoDto.getResposta());
+		
+		final JfEntity jfEntity = jfService.buscarJf(new Long(idJf));
+		if (jfEntity != null) {
+			fatoEntity.setJf(jfEntity);
+			fatoDto.setIdJf(jfEntity.getIdJf());
+		}		
+		fatoService.salvar(fatoEntity);
+		fatoDto.setIdFato(fatoEntity.getIdFato());
+
+		return new ResponseEntity<FatoDto>(fatoDto, HttpStatus.OK);
 	}
 }

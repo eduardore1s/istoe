@@ -96,12 +96,20 @@ POST http://localhost:8080/api/turmas/{idTurma}/jfs
 	"tempoMaxExibicaoFato": 5
 }
 
+### > Cadastrar Fato:
 
+POST http://localhost:8080/api/turmas/{idTurma}/jfs/{idJf}/fatos
 
+{
+	"ordem": 2,
+	"conteudo": "Quantos padroes GRASP existem?",
+	"topicoDisciplina": "Padrao de projeto",
+	"resposta": "V"
+}
 
 ### > Definir status JF:
 
-PATCH http://localhost:8080/api/turmas/{idTurma}/jfs/{idFf}
+PATCH http://localhost:8080/api/turmas/{idTurma}/jfs/{idJf}
 
 {
 	"status": "PREPARACAO"
@@ -111,6 +119,7 @@ PATCH http://localhost:8080/api/turmas/{idTurma}/jfs/{idFf}
 
 GET http://localhost:8080/api/turmas/6/{idTurma}
 
+## US4
 
 
 
