@@ -9,23 +9,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.puc.istoe.dtos.UsuarioDto;
+import com.puc.istoe.entities.UsuarioEntity;
 import com.puc.istoe.services.UsuarioService;
 
 @RestController
 @RequestMapping("api/login")
 public class LoginApiController {
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@GetMapping
 	public ResponseEntity<UsuarioDto> realizarLogin(@RequestParam String login, @RequestParam String senha) {
-		UsuarioDto usuario = usuarioService.buscarUsuario(login).transformaParaDto();
-		if (usuario != null) {
-			if (senha.equals(usuario.getSenha())){
+		final UsuarioEntity usuarioEntity = usuarioService.buscarUsuario(login);
+
+		if (usuarioEntity != null) {
+			final UsuarioDto usuario = usuarioEntity.transformaParaDto();
+
+			if (senha.equals(usuario.getSenha())) {
 				return new ResponseEntity<UsuarioDto>(usuario, HttpStatus.OK);
 			}
 		}
-		return new ResponseEntity<UsuarioDto>(HttpStatus.BAD_REQUEST);		
+
+		return new ResponseEntity<UsuarioDto>(HttpStatus.BAD_REQUEST);
 	}
 }

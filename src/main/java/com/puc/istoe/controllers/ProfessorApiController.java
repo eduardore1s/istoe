@@ -22,37 +22,52 @@ public class ProfessorApiController {
 
 	@Autowired
 	private ProfessorService professorService;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@PostMapping
 	public ResponseEntity<ProfessorDto> cadastrarProfessor(@RequestBody ProfessorDto professorDto) {
-		if (!loginExistente(professorDto.getLogin())) {
-			ProfessorEntity professorEntity = professorDto.transformaParaEntity();
-			professorService.salvar(professorEntity);
-			UsuarioEntity usuarioEntity = new UsuarioEntity();
-			usuarioEntity.setLogin(professorDto.getLogin());
-			usuarioEntity.setSenha(professorDto.getSenha());
-			usuarioEntity.setTipo("PROFESSOR");
-			usuarioService.salvar(usuarioEntity);
-			return new ResponseEntity<ProfessorDto>(professorDto,HttpStatus.OK);
-		}else {
+
+		if (loginExistente(professorDto.getLogin())) {
 			return new ResponseEntity<ProfessorDto>(HttpStatus.BAD_REQUEST);
 		}
+
+		final UsuarioEntity usuarioEntity = new UsuarioEntity();
+		usuarioEntity.setLogin(professorDto.getLogin());
+		usuarioEntity.setSenha(professorDto.getSenha());
+		usuarioEntity.setTipo("PROFESSOR");
+
+		final ProfessorEntity professorEntity = professorDto.transformaParaEntity();
+		professorEntity.setUsuarioEntity(usuarioEntity);
+		professorService.salvar(professorEntity);
+		professorDto.setIdProfessor(professorEntity.getIdProfessor());
+		return new ResponseEntity<ProfessorDto>(professorDto, HttpStatus.OK);
 	}
-	
+
 	private Boolean loginExistente(String login) {
 		return usuarioService.loginExists(login);
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<ProfessorDto> buscarProfessor(@RequestParam String login) {
-		ProfessorEntity professor = professorService.buscarProfessor(login);
-		if (professor != null) {
-			return new ResponseEntity<ProfessorDto>(professor.transformaParaDto(), HttpStatus.OK);
-		}else {
-			return new ResponseEntity<ProfessorDto>(HttpStatus.BAD_REQUEST);
-		}		
+
+		final UsuarioEntity usuarioEntity = usuarioService.buscarUsuario(login);
+
+		if (usuarioEntity != null) {
+			final ProfessorEntity professorEntity = professorService.buscarProfessorIdUsuario(usuarioEntity.getIdUsuario());
+
+			if (professorEntity != null) {
+				final ProfessorDto professorDto = new ProfessorDto();
+				professorDto.setEmail(professorEntity.getEmail());
+				professorDto.setIdProfessor(professorEntity.getIdProfessor());
+				professorDto.setLogin(usuarioEntity.getLogin());
+				professorDto.setNome(professorEntity.getNome());
+				return new ResponseEntity<ProfessorDto>(professorDto, HttpStatus.OK);
+			}
+
+		}
+
+		return new ResponseEntity<ProfessorDto>(HttpStatus.BAD_REQUEST);
 	}
 }

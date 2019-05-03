@@ -15,12 +15,12 @@ public class ProfessorService {
 	public void salvar(ProfessorEntity professorEntity) {
 		professorRepository.save(professorEntity);
 	}
-	
-	public Boolean loginExists(String login) {
-		return professorRepository.findByLogin(login) != null ? true : false;
-	}
 
-	public ProfessorEntity buscarProfessor(String login) {
-		return professorRepository.findByLogin(login);
+	public ProfessorEntity buscarProfessorIdUsuario(Long idUsuario) {
+		return professorRepository.findByUsuarioEntityIdUsuario(idUsuario);
+	}
+	
+	public ProfessorEntity buscarProfessorIdProfessor(Long idProfessor) {
+		return professorRepository.findByIdProfessor(idProfessor);
 	}
 }

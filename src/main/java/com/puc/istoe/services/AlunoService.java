@@ -1,5 +1,7 @@
 package com.puc.istoe.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +17,17 @@ public class AlunoService {
 	public void salvar(AlunoEntity alunoEntity) {
 		alunoRepository.save(alunoEntity);
 	}
-	
-	public Boolean loginExists(String login) {
-		return alunoRepository.findByLogin(login) != null ? true : false;
+
+	public AlunoEntity buscarAlunoIdUsuario(Long idUsuario) {
+		return alunoRepository.findByUsuarioEntityIdUsuario(idUsuario);
 	}
-	
-	public AlunoEntity buscarAluno(String login) {
-		return alunoRepository.findByLogin(login);
+
+	public AlunoEntity buscarAlunoIdAluno(Long idAluno) {
+		return alunoRepository.findByIdAluno(idAluno);
+	}
+
+	public List<AlunoEntity> buscarAlunos(String curso) {
+		return alunoRepository.findByCurso(curso);
 	}
 }
 

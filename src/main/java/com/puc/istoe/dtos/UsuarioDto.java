@@ -1,7 +1,5 @@
 package com.puc.istoe.dtos;
 
-import com.puc.istoe.entities.UsuarioEntity;
-
 public class UsuarioDto {
 
 	private String login;
@@ -37,11 +35,6 @@ public class UsuarioDto {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-	
-	public UsuarioEntity transformaParaEntity() {
-		return new UsuarioEntity(login, senha, tipo);
-	}
-	
+	}	
 	
 }

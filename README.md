@@ -1,67 +1,127 @@
+
 # istoe
 Sistema de Julgamento de Fatos - IstoE
 
 
-#Banco de dados
+# Banco de dados
 
-banco rodando: localhost:3306/istoe_jf
+Criar schema no banco de dados, com o nome "istoe"
 
-CREATE TABLE `istoe_jf`.`usuario` (
-  `idusuario` INT NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(45) NULL,
-  `senha` VARCHAR(45) NULL,
-  `tipo` VARCHAR(45) NULL,
-  PRIMARY KEY (`idusuario`));
+# Requests
 
-CREATE TABLE `istoe_jf`.`aluno` (
-  `idaluno` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  `login` VARCHAR(45) NULL,
-  `senha` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  `curso` VARCHAR(45) NULL,
-  PRIMARY KEY (`idaluno`));
+## US0
 
-CREATE TABLE `istoe_jf`.`professor` (
-  `idprofessor` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  `login` VARCHAR(45) NULL,
-  `senha` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  PRIMARY KEY (`idprofessor`));
+### > Cadastrar professor
 
-
-
-
-
-#Requests
-
-Adicionar Professor:
 POST http://localhost:8080/api/professores
 {
-	"nome": "Rommel",
-	"login": "rommel",
+	"nome": "Lesandro",
+	"login": "lesandro",
 	"senha": "1234",
-	"email": "rommel@gmail.com"
+	"email": "lesandro@gmail.com"
 }
 
-Adicionar Aluno:
+### > Buscar Professor
+
+GET http://localhost:8080/api/professores?login=lesandro
+
+
+### > Login
+
+GET http://localhost:8080/api/login?login=lesandro&senha=1234
+
+
+
+## US1
+
+### > Cadastrar Aluno
+
 POST http://localhost:8080/api/alunos
 
 {
-	"nome": "Hugo Flausino",
-	"login": "hugoflausino",
+	"nome": "Eduardo Reis",
+	"login": "edsilveira.reis",
 	"senha": "023",
 	"curso": "Sistemas de informação",
-	"email": "hugos@gmail.com"
+	"email": "edsilveira.reis@gmail.com"
 }
 
-Buscar Aluno:
-GET http://localhost:8080/api/alunos?login=edsilveira
+### > Buscar Aluno:
 
-Buscar Professor
-GET http://localhost:8080/api/professores?login=lele
+GET http://localhost:8080/api/alunos?login=edsilveira.reis
 
-Login:
-GET http://localhost:8080/api/login?login=edsilveira&senha=123456
+
+
+## US2
+
+### > Cadastrar Turma:
+
+POST http://localhost:8080/api/turmas
+
+{
+	"disciplina": "Projeto de Sistemas de Informação",
+	"curso": "Sistemas de informação",
+	"unidade": "Barreiro",
+	"idProfessor": 1
+}
+
+
+### > Buscar Turma especifica
+
+GET http://localhost:8080/api/turmas/{idTurma}
+
+
+### > Buscar Alunos do curso
+
+GET http://localhost:8080/api/alunos?curso=Sistemas de informação
+
+### > Adicionar aluno à turma
+
+POST http://localhost:8080/api/turmas/{idTurma}/alunos
+
+{
+	"idAluno": 53
+}
+
+
+## US3
+
+### > Cadastrar JF:
+
+POST http://localhost:8080/api/turmas/{idTurma}/jfs
+
+{
+	"status": "CRIACAO",
+	"tamMaxEquipes": 10,
+	"tempoMaxExibicaoFato": 5
+}
+
+### > Cadastrar Fato:
+
+POST http://localhost:8080/api/turmas/{idTurma}/jfs/{idJf}/fatos
+
+{
+	"ordem": 2,
+	"conteudo": "Quantos padroes GRASP existem?",
+	"topicoDisciplina": "Padrao de projeto",
+	"resposta": "V"
+}
+
+### > Definir status JF:
+
+PATCH http://localhost:8080/api/turmas/{idTurma}/jfs/{idJf}
+
+{
+	"status": "PREPARACAO"
+}
+
+### > Buscar JFs da Turma:
+
+GET http://localhost:8080/api/turmas/6/{idTurma}
+
+## US4
+
+
+
+
 
