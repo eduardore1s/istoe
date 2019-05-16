@@ -3,6 +3,7 @@ package com.puc.istoe.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ public class ProfessorApiController {
 	@Autowired
 	private UsuarioService usuarioService;
 
+	@CrossOrigin(origins = "http://localhost:8081")
 	@PostMapping
 	public ResponseEntity<ProfessorDto> cadastrarProfessor(@RequestBody ProfessorDto professorDto) {
 
@@ -48,7 +50,8 @@ public class ProfessorApiController {
 	private Boolean loginExistente(String login) {
 		return usuarioService.loginExists(login);
 	}
-
+	
+	@CrossOrigin(origins = "http://localhost:8081")
 	@GetMapping
 	public ResponseEntity<ProfessorDto> buscarProfessor(@RequestParam String login) {
 

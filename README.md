@@ -88,9 +88,10 @@ POST http://localhost:8080/api/turmas/{idTurma}/alunos
 
 ### > Cadastrar JF:
 
-POST http://localhost:8080/api/turmas/{idTurma}/jfs
+POST http://localhost:8080/api/jfs
 
 {
+	"idTurma": 1,
 	"status": "CRIACAO",
 	"tamMaxEquipes": 10,
 	"tempoMaxExibicaoFato": 5
@@ -98,9 +99,10 @@ POST http://localhost:8080/api/turmas/{idTurma}/jfs
 
 ### > Cadastrar Fato:
 
-POST http://localhost:8080/api/turmas/{idTurma}/jfs/{idJf}/fatos
+POST http://localhost:8080/api/fatos
 
 {
+	"idJf": 1,
 	"ordem": 2,
 	"conteudo": "Quantos padroes GRASP existem?",
 	"topicoDisciplina": "Padrao de projeto",
@@ -109,7 +111,7 @@ POST http://localhost:8080/api/turmas/{idTurma}/jfs/{idJf}/fatos
 
 ### > Definir status JF:
 
-PATCH http://localhost:8080/api/turmas/{idTurma}/jfs/{idJf}
+PATCH http://localhost:8080/api/jfs/{idJf}
 
 {
 	"status": "PREPARACAO"
@@ -117,7 +119,7 @@ PATCH http://localhost:8080/api/turmas/{idTurma}/jfs/{idJf}
 
 ### > Buscar JFs da Turma:
 
-GET http://localhost:8080/api/turmas/6/{idTurma}
+GET http://localhost:8080/api/jfs?idTurma=1
 
 ## US4
 
