@@ -65,6 +65,10 @@ POST http://localhost:8080/api/turmas
 	"idProfessor": 1
 }
 
+### > Buscar Turmas do professor X:
+
+GET http://localhost:8080/api/turmas?idProfessor=1
+
 
 ### > Buscar Turma especifica
 
@@ -120,6 +124,7 @@ PATCH http://localhost:8080/api/jfs/{idJf}
 ### > Buscar JFs da Turma:
 
 GET http://localhost:8080/api/jfs?idTurma=1
+
 
 ## US4
 

@@ -1,5 +1,8 @@
 package com.puc.istoe.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.puc.istoe.dtos.AlunoDto;
@@ -42,7 +46,7 @@ public class TurmaApiController {
 		turmaEntity.setCurso(turmaDto.getCurso());
 		turmaEntity.setDisciplina(turmaDto.getCurso());
 		turmaEntity.setUnidade(turmaDto.getUnidade());
-
+		
 		final ProfessorEntity professorEntity = professorService.buscarProfessorIdProfessor(turmaDto.getIdProfessor());
 		if (professorEntity != null) {
 			turmaEntity.setProfessorEntity(professorEntity);
@@ -68,6 +72,7 @@ public class TurmaApiController {
 		return new ResponseEntity<TurmaDto>(HttpStatus.BAD_REQUEST);
 	}
 
+	@SuppressWarnings("unchecked")
 	@CrossOrigin(origins = "http://localhost:8081")
 	@RequestMapping("/{idTurma}/alunos")
 	@PostMapping
@@ -104,5 +109,25 @@ public class TurmaApiController {
 		turmaDto.setIdTurma(turmaEntity.getIdTurma());
 
 		return turmaDto;
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@GetMapping
+	public ResponseEntity<List<TurmaDto>> buscarTurmaProfessor(@RequestParam String idProfessor) {
+
+		final ProfessorEntity professorEntity = professorService.buscarProfessorIdProfessor(new Long(idProfessor));
+	
+		if (professorEntity != null) {
+			final List<TurmaEntity> turmasEntity = turmaService.buscarTurmasProfessor(professorEntity);
+			final List<TurmaDto> turmasDto = new ArrayList<TurmaDto>();
+			
+			for (TurmaEntity turmaEntity : turmasEntity) {
+				turmasDto.add(transformarTurmaParaDto(turmaEntity));
+			}
+			
+			return new ResponseEntity<List<TurmaDto>>(turmasDto, HttpStatus.OK);
+			}
+
+		return new ResponseEntity<List<TurmaDto>>(HttpStatus.BAD_REQUEST);
 	}
 }
